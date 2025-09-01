@@ -1,0 +1,20 @@
+body { font-family: sans-serif; margin: 0; background:#fafafa; }
+.navbar { background:#333; color:#fff; padding:10px; display:flex; gap:15px; }
+.navbar a { color:#fff; text-decoration:none; }
+.container { max-width: 1100px; margin: 20px auto; padding: 0 12px; }
+.messages .msg { background:#e7f7e7; border:1px solid #8fdd8f; padding:8px 10px; margin-bottom:10px; border-radius:8px; }
+
+.grid { display:grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap:16px; }
+.card { background:#fff; border:1px solid #eee; border-radius:14px; padding:12px; box-shadow: 0 1px 4px rgba(0,0,0,.04); }
+.img-wrap { height: 180px; display:flex; align-items:center; justify-content:center; background:#f0f0f0; border-radius:10px; overflow:hidden; }
+.img-wrap.small { height:120px; }
+.img-wrap img { width:100%; height:100%; object-fit:cover; }
+.placeholder { color:#888; font-size:14px; }
+h1,h2,h3 { margin: 10px 0; }
+.price { font-weight:bold; }
+.actions { display:flex; gap:8px; margin-top:10px; }
+.btn { display:inline-block; padding:8px 12px; border-radius:8px; background:#2e7d32; color:#fff; text-decoration:none; border:none; cursor:pointer; }
+.btn.secondary { background:#455a64; }
+.btn.danger { background:#c62828; }
+form p { display:flex; flex-direction:column; gap:6px; }
+input, textarea { padding:8px; border:1px solid #ddd; border-radius:8px; }

@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% block title %}حذف منتج{% endblock %}
+{% block content %}
+<h1>حذف المنتج</h1>
+<p>هل أنتِ متأكدة من حذف <strong>{{ product.name }}</strong>؟</p>
+<form method="post">
+  {% csrf_token %}
+  <button class="btn danger" type="submit">تأكيد الحذف</button>
+  <a class="btn secondary" href="{% url 'home_page' %}">إلغاء</a>
+</form>
+{% endblock %}

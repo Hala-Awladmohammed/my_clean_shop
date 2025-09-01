@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% block title %}طلب المنتج{% endblock %}
+{% block content %}
+<h1>طلب المنتج</h1>
+
+<div class="card">
+  <div class="img-wrap small">
+    {% if product.image %}
+      <img src="{{ product.image.url }}" alt="{{ product.name }}">
+    {% else %}
+      <div class="placeholder">لا توجد صورة</div>
+    {% endif %}
+  </div>
+  <h3>{{ product.name }}</h3>
+  <p class="price">${{ product.price }}</p>
+  <p class="desc">{{ product.description|default:"" }}</p>
+</div>
+
+<h2>بيانات الطلب</h2>
+<form method="post">
+  {% csrf_token %}
+  {{ form.as_p }}
+  <button class="btn" type="submit">إرسال الطلب</button>
+</form>
+
+{% endblock %}

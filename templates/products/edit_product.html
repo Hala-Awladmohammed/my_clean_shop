@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+{% block title %}تعديل منتج{% endblock %}
+{% block content %}
+<h1>تعديل المنتج: {{ product.name }}</h1>
+<form method="post" enctype="multipart/form-data">
+  {% csrf_token %}
+  {{ form.as_p }}
+  <button class="btn" type="submit">تحديث</button>
+</form>
+{% endblock %}
