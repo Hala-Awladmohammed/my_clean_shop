@@ -1,20 +1,69 @@
+/* عام */
 body { font-family: sans-serif; margin: 0; background:#fafafa; }
+h1,h2,h3 { margin: 10px 0; }
+
+/* navbar */
 .navbar { background:#333; color:#fff; padding:10px; display:flex; gap:15px; }
 .navbar a { color:#fff; text-decoration:none; }
+
+/* container */
 .container { max-width: 1100px; margin: 20px auto; padding: 0 12px; }
+
+/* رسائل النظام */
 .messages .msg { background:#e7f7e7; border:1px solid #8fdd8f; padding:8px 10px; margin-bottom:10px; border-radius:8px; }
 
+/* grid للصفحة الرئيسية */
 .grid { display:grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap:16px; }
-.card { background:#fff; border:1px solid #eee; border-radius:14px; padding:12px; box-shadow: 0 1px 4px rgba(0,0,0,.04); }
+
+/* بطاقات المنتجات */
+.card { background:#fff; border:1px solid #eee; border-radius:14px; padding:12px; box-shadow: 0 1px 4px rgba(0,0,0,.04); margin-bottom:12px; }
 .img-wrap { height: 180px; display:flex; align-items:center; justify-content:center; background:#f0f0f0; border-radius:10px; overflow:hidden; }
 .img-wrap.small { height:120px; }
 .img-wrap img { width:100%; height:100%; object-fit:cover; }
 .placeholder { color:#888; font-size:14px; }
-h1,h2,h3 { margin: 10px 0; }
-.price { font-weight:bold; }
+
+.price { font-weight:bold; color:#2e7d32; }
+
 .actions { display:flex; gap:8px; margin-top:10px; }
-.btn { display:inline-block; padding:8px 12px; border-radius:8px; background:#2e7d32; color:#fff; text-decoration:none; border:none; cursor:pointer; }
+
+/* أزرار */
+.btn { display:inline-block; padding:8px 12px; border-radius:8px; background:#2e7d32; color:#fff; text-decoration:none; border:none; cursor:pointer; transition: 0.2s; }
+.btn:hover { opacity: 0.9; }
 .btn.secondary { background:#455a64; }
 .btn.danger { background:#c62828; }
-form p { display:flex; flex-direction:column; gap:6px; }
+
+/* الفورم */
+form p { display:flex; flex-direction:column; gap:6px; margin-bottom:10px; }
 input, textarea { padding:8px; border:1px solid #ddd; border-radius:8px; }
+
+/* جدول السلة */
+.cart-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+
+.cart-table th, .cart-table td {
+    border: 1px solid #eee;
+    padding: 10px;
+    text-align: center;
+}
+
+.cart-table th { background: #f5f5f5; font-weight: bold; }
+.cart-table td { background: #fff; }
+
+/* المجموع وإجراءات checkout */
+.checkout {
+    margin-top: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.checkout p { font-size: 18px; font-weight: bold; }
+
+/* بطاقات المنتجات في checkout */
+.card h3 { margin-bottom: 6px; }
+.card p { margin: 4px 0; }

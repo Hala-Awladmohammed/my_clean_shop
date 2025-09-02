@@ -3,7 +3,7 @@
 <html lang="ar" dir="rtl">
 <head>
   <meta charset="UTF-8" />
-  <title>{% block title %}clean_shop{% endblock %}</title>
+  <title>{% block title %}Clean Shop{% endblock %}</title>
   <link rel="stylesheet" href="{% static 'css/styles.css' %}">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
@@ -11,8 +11,13 @@
 
 <nav class="navbar">
   <a href="{% url 'home_page' %}">الصفحة الرئيسية</a>
-  <a href="{% url 'add_product' %}">إضافة منتج</a>
-  <a href="/admin/" target="_blank">لوحة الإدارة</a>
+  {% if user.is_staff %}
+    <a href="{% url 'add_product' %}">إضافة منتج</a>
+  {% endif %}
+  <a href="{% url 'view_cart' %}">السلة</a>
+  {% if user.is_staff %}
+    <a href="/admin/" target="_blank">لوحة الإدارة</a>
+  {% endif %}
 </nav>
 
 {% if messages %}

@@ -18,11 +18,12 @@
         <h3>{{ p.name }}</h3>
         <p class="price">${{ p.price }}</p>
         <p class="desc">{{ p.description|default:"" }}</p>
-
         <div class="actions">
-          <a class="btn" href="{% url 'order_product' p.id %}">طلب</a>
-          <a class="btn secondary" href="{% url 'edit_product' p.id %}">تعديل</a>
-          <a class="btn danger" href="{% url 'delete_product' p.id %}">حذف</a>
+          <a class="btn" href="{% url 'add_to_cart' p.id %}">إضافة للسلة</a>
+          {% if user.is_staff %}
+            <a class="btn secondary" href="{% url 'edit_product' p.id %}">تعديل</a>
+            <a class="btn danger" href="{% url 'delete_product' p.id %}">حذف</a>
+          {% endif %}
         </div>
       </div>
     {% endfor %}

@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% load cart_extras %}
+{% block title %}تأكيد الطلب{% endblock %}
+{% block content %}
+
+<h1>تأكيد الطلب</h1>
+
+{% if cart and cart.items.all %}
+  {% for item in cart.items.all %}
+    <div class="card">
+      <div class="img-wrap small">
+        {% if item.product.image %}
+          <img src="{{ item.product.image.url }}" alt="{{ item.product.name }}">
+        {% else %}
+          <div class="placeholder">لا توجد صورة</div>
+        {% endif %}
+      </div>
+      <h3>{{ item.product.name }}</h3>
+      <p>الكمية: {{ item.quantity }}</p>
+      <p>السعر: ${{ item.product.price }}</p>
+      <p>الإجمالي: ${{ item.quantity|mul:item.product.price }}</p>
+    </div>
+  {% endfor %}
+
+  <p><strong>المجموع الكلي: ${{ total }}</strong></p>
+
+  <h2>بيانات العميل</h2>
+  <form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button class="btn" type="submit">تأكيد الطلب</button>
+  </form>
+
+{% else %}
+  <p>السلة فارغة.</p>
+{% endif %}
+
+{% endblock %}

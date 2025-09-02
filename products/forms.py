@@ -6,9 +6,7 @@ class ProductForm(forms.ModelForm):
         model = Product
         fields = ['name', 'price', 'description', 'image']
 
-
 class OrderForm(forms.ModelForm):
     class Meta:
         model = Order
-
-        fields = ['customer_name', 'phone', 'address', 'quantity']
+        fields = ['customer_name', 'phone', 'address']
