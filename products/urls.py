@@ -7,6 +7,8 @@ from .views import (
 
 urlpatterns = [
     path('', HomePageView.as_view(), name='home_page'),
+    path('products/', HomePageView.as_view(), name='home_page'),
+
     path('products/add/', ProductCreateView.as_view(), name='add_product'),
     path('products/<int:pk>/edit/', ProductUpdateView.as_view(), name='edit_product'),
     path('products/<int:pk>/delete/', ProductDeleteView.as_view(), name='delete_product'),
@@ -17,7 +19,6 @@ urlpatterns = [
 
     path('checkout/', CheckoutView.as_view(), name='checkout'),
 
-    # APIs
     path('api/products/', ProductListCreateAPI.as_view(), name='api_products'),
     path('api/products/<int:pk>/', ProductDetailAPI.as_view(), name='api_product_detail'),
     path('api/cart/', CartListAPI.as_view(), name='api_cart'),

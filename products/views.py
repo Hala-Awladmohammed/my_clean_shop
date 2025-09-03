@@ -4,10 +4,13 @@ from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from .models import Product, Cart, CartItem, Order, OrderItem
 from .forms import ProductForm, OrderForm
-from rest_framework import generics
-from .serializers import ProductSerializer, CartSerializer, OrderSerializer, OrderItemSerializer
 
-# ---------------- صفحات الويب ----------------
+# REST Framework
+from rest_framework import generics
+from rest_framework.permissions import IsAuthenticated
+from .serializers import ProductSerializer, CartSerializer, OrderSerializer
+
+
 
 class HomePageView(ListView):
     model = Product
@@ -15,7 +18,7 @@ class HomePageView(ListView):
     context_object_name = 'products'
     ordering = ['-id']
 
-# ---- حماية صفحات إدارة المنتجات ----
+
 class ProductCreateView(LoginRequiredMixin, UserPassesTestMixin, CreateView):
     model = Product
     form_class = ProductForm
@@ -54,7 +57,7 @@ class ProductDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     def test_func(self):
         return self.request.user.is_staff
 
-# ---------------- سلة المشتريات ----------------
+
 class CartView(TemplateView):
     template_name = 'products/cart.html'
 
@@ -85,7 +88,7 @@ class AddToCartView(View):
 
 class RemoveFromCartView(View):
     def get(self, request, item_id):
-        cart_id = request.session.get('cart_id')
+        cart_id = self.request.session.get('cart_id')
         if cart_id:
             cart = Cart.objects.get(id=cart_id)
             item = get_object_or_404(CartItem, id=item_id, cart=cart)
@@ -93,7 +96,7 @@ class RemoveFromCartView(View):
             messages.success(request, "تم حذف المنتج من السلة.")
         return redirect('view_cart')
 
-# ---------------- Checkout ----------------
+
 class CheckoutView(FormView):
     template_name = 'products/checkout.html'
     form_class = OrderForm
@@ -122,17 +125,22 @@ class CheckoutView(FormView):
         messages.success(self.request, "تم تأكيد الطلب بنجاح.")
         return super().form_valid(form)
 
+
+
 # ---------------- APIs ----------------
 class ProductListCreateAPI(generics.ListCreateAPIView):
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
+    permission_classes = [IsAuthenticated]
 
 class ProductDetailAPI(generics.RetrieveUpdateDestroyAPIView):
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
+    permission_classes = [IsAuthenticated]
 
 class CartListAPI(generics.RetrieveAPIView):
     serializer_class = CartSerializer
+    permission_classes = [IsAuthenticated]
 
     def get_object(self):
         cart_id = self.request.session.get('cart_id')
@@ -141,7 +149,9 @@ class CartListAPI(generics.RetrieveAPIView):
 class OrderListCreateAPI(generics.ListCreateAPIView):
     queryset = Order.objects.all()
     serializer_class = OrderSerializer
+    permission_classes = [IsAuthenticated]
 
 class OrderDetailAPI(generics.RetrieveUpdateDestroyAPIView):
     queryset = Order.objects.all()
     serializer_class = OrderSerializer
+    permission_classes = [IsAuthenticated]
