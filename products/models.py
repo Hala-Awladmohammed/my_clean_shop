@@ -49,7 +49,7 @@ class Order(models.Model):
         settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE,
         related_name="orders",
-        blank=True,  # يسمح للسجلات القديمة بأن تكون فارغة
+        blank=True,
         null=True
     )
     customer_name = models.CharField(max_length=150)
