@@ -1,4 +1,7 @@
 from django.db import models
+from django.contrib.auth.models import User
+from django.conf import settings
+
 
 class Product(models.Model):
     name = models.CharField(max_length=200)
@@ -10,13 +13,22 @@ class Product(models.Model):
         return self.name
 
 class Cart(models.Model):
+    user = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE,
+        related_name="carts",
+        blank=True,
+        null=True
+    )
     created_at = models.DateTimeField(auto_now_add=True)
 
     def total_price(self):
         return sum(item.total_price() for item in self.items.all())
 
     def __str__(self):
-        return f"Cart #{self.id}"
+        if self.user:
+            return f"Cart #{self.id} ({self.user.username})"
+        return f"Cart #{self.id} (غير مرتبط بمستخدم)"
 
 class CartItem(models.Model):
     cart = models.ForeignKey(Cart, on_delete=models.CASCADE, related_name='items')
@@ -33,6 +45,13 @@ class CartItem(models.Model):
         return f"{self.product.name} (x{self.quantity})"
 
 class Order(models.Model):
+    user = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE,
+        related_name="orders",
+        blank=True,  # يسمح للسجلات القديمة بأن تكون فارغة
+        null=True
+    )
     customer_name = models.CharField(max_length=150)
     phone = models.CharField(max_length=50)
     address = models.TextField()
@@ -42,7 +61,9 @@ class Order(models.Model):
         return sum(item.total_price() for item in self.items.all())
 
     def __str__(self):
-        return f"Order #{self.id} - {self.customer_name}"
+        if self.user:
+            return f"Order #{self.id} - {self.customer_name} ({self.user.username})"
+        return f"Order #{self.id} - {self.customer_name} (غير مرتبط بمستخدم)"
 
 class OrderItem(models.Model):
     order = models.ForeignKey(Order, on_delete=models.CASCADE, related_name='items')

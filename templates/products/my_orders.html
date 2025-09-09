@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% block title %}طلباتي{% endblock %}
+{% block content %}
+
+<h1>طلباتي</h1>
+
+{% if orders %}
+  <ul>
+    {% for order in orders %}
+      <li>
+        <strong>طلب رقم #{{ order.id }}</strong><br>
+        التاريخ: {{ order.created_at|date:"Y-m-d H:i" }}<br>
+        الإجمالي: {{ order.total_price }}<br>
+        <ul>
+          {% for item in order.items.all %}
+            <li>{{ item.product.name }} (x{{ item.quantity }}) - {{ item.total_price }}</li>
+          {% endfor %}
+        </ul>
+      </li>
+      <hr>
+    {% endfor %}
+  </ul>
+{% else %}
+  <p>ما عندك طلبات لحد الآن.</p>
+{% endif %}
+
+{% endblock %}

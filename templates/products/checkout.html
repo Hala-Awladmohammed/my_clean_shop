@@ -2,7 +2,6 @@
 {% load cart_extras %}
 {% block title %}تأكيد الطلب{% endblock %}
 {% block content %}
-
 <h1>تأكيد الطلب</h1>
 
 {% if cart and cart.items.all %}
@@ -30,9 +29,7 @@
     {{ form.as_p }}
     <button class="btn" type="submit">تأكيد الطلب</button>
   </form>
-
 {% else %}
   <p>السلة فارغة.</p>
 {% endif %}
-
 {% endblock %}

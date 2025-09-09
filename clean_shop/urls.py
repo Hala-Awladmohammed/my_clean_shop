@@ -9,9 +9,11 @@ urlpatterns = [
     path('', include('products.urls')),
 
     path('login/', auth_views.LoginView.as_view(template_name='products/login.html'), name='login'),
-    path('logout/', auth_views.LogoutView.as_view(next_page='/'), name='logout'),
-
-
+    path(
+        'logout/',
+        auth_views.LogoutView.as_view(next_page='/'),  # ← هنا الصفحة الرئيسية بعد الخروج
+        name='logout'
+    ),
     path('api-auth/', include('rest_framework.urls')),
 ]
 

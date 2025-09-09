@@ -2,7 +2,6 @@
 {% load cart_extras %}
 {% block title %}السلة{% endblock %}
 {% block content %}
-
 <h1>سلة المشتريات</h1>
 
 {% if cart and cart.items.all %}
@@ -23,9 +22,7 @@
       <td>${{ item.product.price }}</td>
       <td>{{ item.quantity }}</td>
       <td>${{ item.quantity|mul:item.product.price }}</td>
-      <td>
-        <a class="btn danger" href="{% url 'remove_from_cart' item.id %}">حذف</a>
-      </td>
+      <td><a class="btn danger" href="{% url 'remove_from_cart' item.id %}">حذف</a></td>
     </tr>
     {% endfor %}
   </tbody>
@@ -34,9 +31,7 @@
 <div class="checkout">
   <a class="btn" href="{% url 'checkout' %}">تأكيد الطلب</a>
 </div>
-
 {% else %}
 <p>السلة فارغة.</p>
 {% endif %}
-
 {% endblock %}

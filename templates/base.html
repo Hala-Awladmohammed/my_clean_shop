@@ -11,14 +11,30 @@
 
 <nav class="navbar">
   <a href="{% url 'home_page' %}">الصفحة الرئيسية</a>
+
   {% if user.is_staff %}
     <a href="{% url 'add_product' %}">إضافة منتج</a>
   {% endif %}
+
   <a href="{% url 'view_cart' %}">السلة</a>
+
+  {% if user.is_authenticated %}
+    <span>مرحبا، {{ user.username }}</span>
+    <!-- تعديل زر تسجيل الخروج ليكون POST -->
+    <form method="post" action="{% url 'logout' %}" style="display:inline;">
+      {% csrf_token %}
+      <button type="submit" class="btn btn-danger" style="background:none;border:none;color:red;cursor:pointer;">تسجيل خروج</button>
+    </form>
+  {% else %}
+    <a href="{% url 'login' %}">تسجيل دخول</a>
+    <a href="{% url 'register' %}">إنشاء حساب</a>
+  {% endif %}
+
   {% if user.is_staff %}
     <a href="/admin/" target="_blank">لوحة الإدارة</a>
   {% endif %}
 </nav>
+
 
 {% if messages %}
   <div class="messages">
