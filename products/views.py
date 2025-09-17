@@ -8,7 +8,7 @@ from .forms import ProductForm, OrderForm, CustomerRegisterForm
 
 # REST Framework
 from rest_framework import generics
-from rest_framework.permissions import IsAuthenticated, IsAdminUser
+from rest_framework.permissions import AllowAny  # <-- تعديل هنا
 from .serializers import ProductSerializer, CartSerializer, OrderSerializer
 
 
@@ -147,28 +147,24 @@ class MyOrdersView(LoginRequiredMixin, ListView):
 class ProductListCreateAPI(generics.ListCreateAPIView):
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
-    permission_classes = [IsAuthenticated]  # أي مستخدم مسجل يستطيع رؤية المنتجات
-    # لإضافة/تعديل المنتجات فقط للـ Admin، يمكن تعديل serializer أو استخدام IsAdminUser مع POST/PUT
-
+    permission_classes = [AllowAny]  # <-- تم تعديلها
 
 class ProductDetailAPI(generics.RetrieveUpdateDestroyAPIView):
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
-    permission_classes = [IsAuthenticated]  # أي مستخدم مسجل، تعديل وحذف ممكن تحكمه لاحقاً
-
+    permission_classes = [AllowAny]  # <-- تم تعديلها
 
 class CartListAPI(generics.RetrieveAPIView):
     serializer_class = CartSerializer
-    permission_classes = [IsAuthenticated]
+    permission_classes = [AllowAny]  # <-- تم تعديلها
 
     def get_object(self):
         cart, created = Cart.objects.get_or_create(user=self.request.user)
         return cart
 
-
 class OrderListCreateAPI(generics.ListCreateAPIView):
     serializer_class = OrderSerializer
-    permission_classes = [IsAuthenticated]
+    permission_classes = [AllowAny]  # <-- تم تعديلها
 
     def get_queryset(self):
         return Order.objects.filter(user=self.request.user).order_by('-created_at')
@@ -176,10 +172,9 @@ class OrderListCreateAPI(generics.ListCreateAPIView):
     def perform_create(self, serializer):
         serializer.save(user=self.request.user)
 
-
 class OrderDetailAPI(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = OrderSerializer
-    permission_classes = [IsAuthenticated]
+    permission_classes = [AllowAny]  # <-- تم تعديلها
 
     def get_queryset(self):
         return Order.objects.filter(user=self.request.user)

@@ -24,9 +24,14 @@ urlpatterns = [
     path('my-orders/', MyOrdersView.as_view(), name='my_orders'),
 
     # ---------- APIs ----------
-    path('api/products/', ProductListCreateAPI.as_view(), name='api_products'),
-    path('api/products/<int:pk>/', ProductDetailAPI.as_view(), name='api_product_detail'),
-    path('api/cart/', CartListAPI.as_view(), name='api_cart'),
-    path('api/orders/', OrderListCreateAPI.as_view(), name='api_orders'),
-    path('api/orders/<int:pk>/', OrderDetailAPI.as_view(), name='api_order_detail'),
+    # Products API
+    path('api/products/', ProductListCreateAPI.as_view(), name='api_products'),          # GET all, POST new
+    path('api/products/<int:pk>/', ProductDetailAPI.as_view(), name='api_product_detail'),  # GET, PUT, DELETE
+
+    # Cart API
+    path('api/cart/', CartListAPI.as_view(), name='api_cart'),  # GET cart items (تم السماح للجميع)
+
+    # Orders API
+    path('api/orders/', OrderListCreateAPI.as_view(), name='api_orders'),                # GET all user orders, POST order
+    path('api/orders/<int:pk>/', OrderDetailAPI.as_view(), name='api_order_detail'),      # GET, PUT, DELETE single order
 ]
